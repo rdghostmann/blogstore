@@ -246,13 +246,6 @@ export default function CheckoutPage({ email }) {
                                             Credit/Debit Card
                                         </Label>
                                     </div>
-                                    <div className="flex items-center space-x-2 p-3 border rounded-md">
-                                        <RadioGroupItem value="transfer" id="transfer" />
-                                        <Label htmlFor="transfer" className="flex items-center cursor-pointer">
-                                            <Truck className="h-4 w-4 mr-2" />
-                                            Bank Transfer
-                                        </Label>
-                                    </div>
                                 </RadioGroup>
 
                                 {formData.paymentMethod === "card" && (
