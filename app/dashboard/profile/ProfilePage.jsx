@@ -25,12 +25,11 @@ import {
     X,
 } from "lucide-react"
 import DashboardLayout from "@/components/dashboard-layout"
-import { useToast } from "@/hooks/use-toast"
 import { getUserProfile } from "@/controllers/getUserProfile"
 import ActivitySummary from "./ActivitySummary"
+import { toast } from "sonner"
 
 export default function UserProfilePage({ user }) {
-    const { toast } = useToast()
     const router = useRouter()
     const [isEditing, setIsEditing] = useState(false)
     const [formData, setFormData] = useState({
