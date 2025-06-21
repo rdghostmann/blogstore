@@ -304,15 +304,27 @@ export default function CheckoutPage({ email }) {
                                         <h3 className="font-semibold mb-2">Bank Transfer Details</h3>
                                         <div>
                                             <Label>Bank Name</Label>
-                                            <div className="font-medium">Zenith Bank</div>
+                                            <div className="font-medium">Access Bank</div>
                                         </div>
                                         <div>
                                             <Label>Account Name</Label>
-                                            <div className="font-medium">BlogStore Ltd</div>
+                                            <div className="font-medium">Chigozie</div>
                                         </div>
                                         <div>
                                             <Label>Account Number</Label>
-                                            <div className="font-medium tracking-widest">1234567890</div>
+                                            <div className="font-medium tracking-widest">1497330142</div>
+                                        </div>
+                                        <div>
+                                            <Label>Bank Name</Label>
+                                            <div className="font-medium">Guranty Trust Bank</div>
+                                        </div>
+                                        <div>
+                                            <Label>Account Name</Label>
+                                            <div className="font-medium">Chigozie</div>
+                                        </div>
+                                        <div>
+                                            <Label>Account Number</Label>
+                                            <div className="font-medium tracking-widest">0592700853</div>
                                         </div>
                                         <div className="text-xs text-gray-600 dark:text-gray-400 mt-2">
                                             Please make your payment to the above account and include your email as the payment reference. Your order will be processed once payment is confirmed.
