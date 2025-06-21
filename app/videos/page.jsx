@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 
 // Mock data for videos
 const videos = [
@@ -73,47 +75,51 @@ export const metadata = {
 
 export default function VideosPage() {
   return (
-    <div className="container mx-auto py-8 md:py-12">
-      <div className="flex flex-col items-center mb-8 text-center">
-        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Videos</h1>
-        <p className="mt-4 text-slate-500 md:text-xl dark:text-slate-400 max-w-[700px]">
-          Watch our latest videos on web development, design, and technology.
-        </p>
-      </div>
+    <>
+      <Header />
+      <div className="container mx-auto py-8 md:py-12">
+        <div className="flex flex-col items-center mb-8 text-center">
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Videos</h1>
+          <p className="mt-4 text-slate-500 md:text-xl dark:text-slate-400 max-w-[700px]">
+            Watch our latest videos on web development, design, and technology.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {videos.map((video) => (
-          <Card key={video.id} className="overflow-hidden">
-            <CardContent className="p-0">
-              <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative">
-                <iframe
-                  className="w-full h-full absolute"
-                  src={video.embedUrl}
-                  title={video.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge variant="secondary">{video.category}</Badge>
-                  <span className="text-xs text-slate-500 dark:text-slate-400">{video.date}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {videos.map((video) => (
+            <Card key={video.id} className="overflow-hidden">
+              <CardContent className="p-0">
+                <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative">
+                  <iframe
+                    className="w-full h-full absolute"
+                    src={video.embedUrl}
+                    title={video.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
                 </div>
-                <Link href={`/videos/${video.id}`}>
-                  <h3 className="font-semibold text-lg mb-2 hover:underline">{video.title}</h3>
-                </Link>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">{video.description}</p>
-                <div className="flex items-center text-xs text-slate-500 dark:text-slate-400">
-                  <span>{video.views.toLocaleString()} views</span>
-                  <span className="mx-2">•</span>
-                  <span>{video.likes.toLocaleString()} likes</span>
+                <div className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge variant="secondary">{video.category}</Badge>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{video.date}</span>
+                  </div>
+                  <Link href={`/videos/${video.id}`}>
+                    <h3 className="font-semibold text-lg mb-2 hover:underline">{video.title}</h3>
+                  </Link>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">{video.description}</p>
+                  <div className="flex items-center text-xs text-slate-500 dark:text-slate-400">
+                    <span>{video.views.toLocaleString()} views</span>
+                    <span className="mx-2">•</span>
+                    <span>{video.likes.toLocaleString()} likes</span>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }

@@ -16,6 +16,8 @@ import AnimatedHeading from "@/components/animated-heading"
 import AdsBanner from "@/components/ads-banner"
 import ShowcaseStore from "@/components/ShowcaseStore/ShowcaseStore"
 import PartnersSection from "@/components/PartnersSection/PartnersSection"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 
 
 // Sample data for hero slider
@@ -108,6 +110,8 @@ export default function StorePage({featuredProducts, products }) {
       : products.filter((product) => product.category.toLowerCase() === activeCategory.toLowerCase())
 
   return (
+    <>
+    <Header />
     <div className="pt-16">
       {/* Top Banner Ad */}
       <div className="bg-gray-50 dark:bg-gray-900 py-4">
@@ -283,5 +287,7 @@ export default function StorePage({featuredProducts, products }) {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   )
 }
