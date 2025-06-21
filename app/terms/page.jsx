@@ -318,7 +318,7 @@ export default function TermsPage() {
                       </p>
                       <div className="space-y-2 text-gray-600 dark:text-gray-400">
                         <p>
-                          <stro>Email:</stro ng>{" "}
+                          <strong>Email:</strong>{" "}
                           <a href="mailto:legal@modernblog.com" className="text-primary-600 hover:underline">
                             legal@modernblog.com
                           </a>
