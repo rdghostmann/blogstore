@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Shield, Eye, Lock, Users, Database, Globe } from "lucide-react"
 import AnimatedHeading from "@/components/animated-heading"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 
 const privacyPrinciples = [
   {
@@ -31,6 +33,8 @@ const privacyPrinciples = [
 
 export default function PrivacyPolicyPage() {
   return (
+   <>
+   <Header />
     <div className="pt-16">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-primary-700 to-secondary-700 text-white py-16 md:py-24">
@@ -336,5 +340,7 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
     </div>
+    <Footer />
+   </>
   )
 }
