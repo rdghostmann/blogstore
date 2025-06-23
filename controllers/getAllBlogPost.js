@@ -8,11 +8,12 @@ export async function getAllBlogPosts() {
   const posts = await BlogPost.find({}).sort({ date: -1 }).lean()
   return posts.map(post => ({
     ...post,
-    id: post._id ? post._id.toString() : post.id,
+    // id: post._id ? post._id.toString() : post.id,
+    id: _id ? _id.toString() : post.id,
     authorId: post.authorId ? post.authorId.toString() : "",
     date: post.date instanceof Date
       ? post.date.toISOString().split("T")[0]
       : (typeof post.date === "string" && post.date.includes("T") ? post.date.split("T")[0] : post.date),
-    _id: undefined
+    // _id: undefined
   }))
 }

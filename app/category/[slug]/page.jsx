@@ -7,7 +7,11 @@ import Loading from "@/app/loading"
 
 export default async function page() {
   const allPosts = await getAllBlogPosts()
-
+  if (!allPosts) {
+    return <div className="container text-center mx-auto px-4 py-8">
+      No posts found.
+    </div>
+  }
   return (
     <>
       <Header />

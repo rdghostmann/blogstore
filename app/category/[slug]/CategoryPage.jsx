@@ -142,19 +142,16 @@ export default function CategoryPage({ allPosts }) {
               </div>
 
               {categoryPosts.length > 0 ? (
-                <motion.div
-                  initial="hidden"
-                  animate={postsInView ? "visible" : "hidden"}
-                  variants={staggerContainer}
+                <div
+                
                   className="grid grid-cols-1 md:grid-cols-2 gap-8"
                 >
                   {categoryPosts.map((post) => (
 
 
-                    <Card className="overflow-hidden h-full">
+                    <Card key={post.id} className="overflow-hidden h-full">
                       <div className="relative h-48 w-full overflow-hidden">
                         <Image
-                          src={post.image || "/post-landscape-6.jpg"}
                           alt={post.title}
                           fill
                           className="object-cover transition-transform duration-500 hover:scale-105"
@@ -213,7 +210,7 @@ export default function CategoryPage({ allPosts }) {
                     </Card>
 
                   ))}
-                </motion.div>
+                </div>
               ) : (
                 <div className="text-center py-12">
                   <p className="text-gray-500 dark:text-gray-400 text-lg">No articles found in this category yet.</p>
