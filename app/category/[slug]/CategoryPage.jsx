@@ -58,17 +58,18 @@ const staggerContainer = {
   },
 }
 
-export default function CategoryPage({allPosts}) {
+export default function CategoryPage({ allPosts }) {
   const params = useParams()
-  const slug = params.slug 
+  const slug = params.slug
   const [sortBy, setSortBy] = useState("latest")
 
   const postsRef = useRef(null)
   const postsInView = useInView(postsRef, { once: true, amount: 0.3 })
 
-  const category = categoryInfo[slug ?.toLowerCase()] 
-  const categoryPosts = allPosts.filter((post) => post.category.toLowerCase() === slug)
-
+  const category = categoryInfo[slug?.toLowerCase()]
+  const categoryPosts = allPosts.filter(
+    (post) => post.category?.toLowerCase() === slug?.toLowerCase()
+  )
   if (!category) {
     return (
       <div className="pt-16 min-h-screen flex items-center justify-center">

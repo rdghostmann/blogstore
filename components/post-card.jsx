@@ -8,35 +8,19 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Clock, MessageSquare, Eye, Bookmark } from "lucide-react"
 
-// interface Author {
-//   name: string
-//   avatar: string
-// }
 
-// interface Post {
-//   id: number
-//   title: string
-//   excerpt: string
-//   category: string
-//   image: string
-//   author: Author
-//   date: string
-//   readTime: string
-//   comments?: number
-//   views?: number
-// }
+// Optional: Accept categoryColor as a prop if you want dynamic badge color
+export default function PostCard({ post, categoryColor }) {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  }
 
-// interface PostCardProps {
-//   post: Post
-// }
-
-export default function PostCard({ post }) {
   return (
     <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-      }}
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
     >
       <Card className="overflow-hidden h-full">
         <div className="relative h-48 w-full overflow-hidden">
@@ -47,7 +31,9 @@ export default function PostCard({ post }) {
             className="object-cover transition-transform duration-500 hover:scale-105"
           />
           <div className="absolute top-3 left-3">
-            <Badge className="bg-primary-600 hover:bg-primary-700">{post.category}</Badge>
+            <Badge className={`${categoryColor || "bg-primary-600"} hover:bg-primary-700`}>
+              {post.category}
+            </Badge>
           </div>
           <Button
             variant="ghost"
@@ -67,13 +53,13 @@ export default function PostCard({ post }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Image
-                src={post.author.avatar || "/blog-author.jpg"}
-                alt={post.author.name}
+                src={post.author?.avatar || "/blog-author.jpg"}
+                alt={post.author?.name || "Author"}
                 width={24}
                 height={24}
                 className="rounded-full mr-2"
               />
-              <span className="text-sm font-medium">{post.author.name}</span>
+              <span className="text-sm font-medium">{post.author?.name}</span>
             </div>
             <div className="flex items-center space-x-3 text-sm text-gray-500 dark:text-gray-400">
               {post.comments !== undefined && (
