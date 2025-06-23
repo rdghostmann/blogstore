@@ -13,6 +13,7 @@ import ParallaxCTA from "@/components/parallax-cta"
 import TrendingPosts from "@/components/trending-posts"
 import CategoryButtons from "@/components/category-buttons"
 import AdsBanner from "@/components/ads-banner"
+import Link from "next/link"
 
 
 
@@ -152,7 +153,7 @@ export default function CategoryPage({allPosts}) {
                 <div className="text-center py-12">
                   <p className="text-gray-500 dark:text-gray-400 text-lg">No articles found in this category yet.</p>
                   <Button className="mt-4" asChild>
-                    <a href="/">Browse All Articles</a>
+                    <Link href="/">Browse All Articles</Link>
                   </Button>
                 </div>
               )}
