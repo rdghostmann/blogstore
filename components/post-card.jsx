@@ -11,12 +11,15 @@ import { Clock, MessageSquare, Eye, Bookmark } from "lucide-react"
 
 
 export default function PostCard({ post }) {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  }
   return (
     <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-      }}
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
     >
       <Card className="overflow-hidden h-full">
         <div className="relative h-48 w-full overflow-hidden">
