@@ -44,9 +44,13 @@ export default function VideoOfTheWeek() {
     })
   }
 
-  if (!featuredVideo) {
-    return <div>Loading...</div>
-  }
+ if (!featuredVideo) {
+  return (
+    <div className="flex items-center text-center justify-center py-16 text-lg text-gray-500">
+      Loading featured video of the week. Please wait...
+    </div>
+  )
+}
 
   return (
     <section className="py-16">

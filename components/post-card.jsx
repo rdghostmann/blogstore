@@ -41,7 +41,7 @@ export default function PostCard({ post }) {
           </Button>
         </div>
         <CardContent className="p-5">
-          <Link href={`/post/${post.id}`} className="block">
+          <Link href={`/blog/post/${post.id}`} className="block">
             <h3 className="text-lg font-bold mb-2 line-clamp-2 hover:text-primary-600 transition-colors">
               {post.title}
             </h3>

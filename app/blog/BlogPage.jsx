@@ -25,7 +25,7 @@ export default function BlogPage({blogPosts}) {
           >
             <Card className="overflow-hidden group shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-0">
-                <Link href={`/blog/${post.id}`}>
+                <Link href={`/blog/post/${post.id}`}>
                   <div className="relative h-48 w-full overflow-hidden">
                     <Image
                       src={post.image || "/placeholder.svg"}
@@ -44,7 +44,7 @@ export default function BlogPage({blogPosts}) {
                       {post.date ? moment(post.date).fromNow() : ""}
                     </span>
                   </div>
-                  <Link href={`/blog/${post.id}`}>
+                  <Link href={`/blog/post/${post.id}`}>
                     <h3 className="font-semibold text-lg mb-2 hover:underline">
                       {post.title}
                     </h3>
