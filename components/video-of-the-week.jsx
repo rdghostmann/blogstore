@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
@@ -7,53 +8,26 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Play, Clock, Eye, ThumbsUp, Share2, PlayCircle } from "lucide-react"
 import AnimatedHeading from "@/components/animated-heading"
-import Link from "next/link"
-
-const featuredVideo = {
-  id: 1,
-  title: "The Future of Sustainable Fashion: A Deep Dive into Eco-Friendly Materials",
-  description:
-    "Join us as we explore the latest innovations in sustainable fashion, from lab-grown materials to circular design principles that are reshaping the industry.",
-  thumbnail: "/blog/blog-inside-post.jpg",
-  duration: "12:34",
-  views: "15.2K",
-  likes: "1.2K",
-  publishedDate: "3 days ago",
-  category: "Fashion",
-  author: {
-    name: "Emma Davis",
-    avatar: "/team/team-4.jpg",
-  },
-}
-
-const relatedVideos = [
-  {
-    id: 2,
-    title: "Tech Gadgets That Will Change Your Life in 2024",
-    thumbnail: "/blog/blog-6.jpg",
-    duration: "8:45",
-    views: "8.7K",
-    category: "Technology",
-  },
-  {
-    id: 3,
-    title: "Hidden Travel Gems in Southeast Asia",
-    thumbnail: "/blog/blog-recent-4.jpg",
-    duration: "15:22",
-    views: "12.1K",
-    category: "Travel",
-  },
-  {
-    id: 4,
-    title: "Minimalist Living: Transform Your Space",
-    thumbnail: "/blog/blog-recent-5.jpg",
-    duration: "10:18",
-    views: "9.3K",
-    category: "Lifestyle",
-  },
-]
+import { getFeaturedVideo } from "@/controllers/getFeaturedVideo"
+import { getRelatedVideos } from "@/controllers/relatedVideos"
+import { useEffect, useState as useClientState } from "react"
 
 export default function VideoOfTheWeek() {
+  const [featuredVideo, setFeaturedVideo] = useClientState(null)
+  const [relatedVideos, setRelatedVideos] = useClientState([])
+
+  useEffect(() => {
+    async function fetchData() {
+      const [featured, related] = await Promise.all([
+        getFeaturedVideo(),
+        getRelatedVideos(),
+      ])
+      setFeaturedVideo(featured)
+      setRelatedVideos(related)
+    }
+    fetchData()
+  }, [])
+
   const [isPlaying, setIsPlaying] = useState(false)
 
   const handlePlayVideo = () => {
@@ -62,12 +36,16 @@ export default function VideoOfTheWeek() {
   }
 
   const handleShare = () => {
-    // In a real implementation, this would open share options
+    if (!featuredVideo) return
     navigator.share?.({
       title: featuredVideo.title,
       text: featuredVideo.description,
       url: window.location.href,
     })
+  }
+
+  if (!featuredVideo) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -149,11 +127,11 @@ export default function VideoOfTheWeek() {
                     <div className="relative h-10 w-10 rounded-full overflow-hidden mr-3">
                       <div
                         className="w-full h-full bg-cover bg-center"
-                        style={{ backgroundImage: `url(${featuredVideo.author.avatar})` }}
+                        style={{ backgroundImage: `url(${featuredVideo.author?.avatar})` }}
                       />
                     </div>
                     <div>
-                      <p className="font-medium">{featuredVideo.author.name}</p>
+                      <p className="font-medium">{featuredVideo.author?.name}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Content Creator</p>
                     </div>
                   </div>

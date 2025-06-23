@@ -5,7 +5,8 @@ import { connectToDB } from "@/lib/connectDB"
 
 export async function getFeaturedVideo() {
   await connectToDB()
-  const video = await VBlog.findOne().sort({ date: -1 }).lean()
+  // Find the most recently created video (last inserted)
+  const video = await VBlog.findOne().sort({ createdAt: -1 }).lean()
   if (!video) return null
   return {
     ...video,
