@@ -9,18 +9,14 @@ import { Button } from "@/components/ui/button"
 import { Clock, MessageSquare, Eye, Bookmark } from "lucide-react"
 
 
-// Optional: Accept categoryColor as a prop if you want dynamic badge color
-export default function PostCard({ post }) {
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
 
+export default function PostCard({ post }) {
   return (
     <motion.div
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+      }}
     >
       <Card className="overflow-hidden h-full">
         <div className="relative h-48 w-full overflow-hidden">
@@ -31,9 +27,7 @@ export default function PostCard({ post }) {
             className="object-cover transition-transform duration-500 hover:scale-105"
           />
           <div className="absolute top-3 left-3">
-            <Badge className={`${categoryColor || "bg-primary-600"} hover:bg-primary-700`}>
-              {post.category}
-            </Badge>
+            <Badge className="bg-primary-600 hover:bg-primary-700">{post.category}</Badge>
           </div>
           <Button
             variant="ghost"
@@ -53,13 +47,13 @@ export default function PostCard({ post }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Image
-                src={post.author?.avatar || "/blog-author.jpg"}
-                alt={post.author?.name || "Author"}
+                src={post.author.avatar || "/blog-author.jpg"}
+                alt={post.author.name}
                 width={24}
                 height={24}
                 className="rounded-full mr-2"
               />
-              <span className="text-sm font-medium">{post.author?.name}</span>
+              <span className="text-sm font-medium">{post.author.name}</span>
             </div>
             <div className="flex items-center space-x-3 text-sm text-gray-500 dark:text-gray-400">
               {post.comments !== undefined && (
