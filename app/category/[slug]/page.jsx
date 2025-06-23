@@ -2,7 +2,7 @@ import Header from "@/components/header"
 import CategoryPage from "./CategoryPage"
 import { getAllBlogPosts } from "@/controllers/getAllBlogPost"
 import Footer from "@/components/footer"
-import { Suspense } from "react"
+// import { Suspense } from "react"
 import Loading from "@/app/loading"
 
 export default async function page() {
@@ -15,9 +15,9 @@ export default async function page() {
   return (
     <>
       <Header />
-      <Suspense fallback={<Loading />}>
+      {/* <Suspense fallback={<Loading />}> */}
         <CategoryPage allPosts={allPosts} />
-      </Suspense>
+      {/* </Suspense> */}
       <Footer />
     </>
   )
