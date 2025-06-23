@@ -12,6 +12,11 @@ import ParallaxCTA from "@/components/parallax-cta"
 import TrendingPosts from "@/components/trending-posts"
 import CategoryButtons from "@/components/category-buttons"
 import AdsBanner from "@/components/ads-banner"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Clock, MessageSquare, Eye, Bookmark } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 
@@ -168,7 +173,7 @@ export default function CategoryPage({ allPosts }) {
                         </Button>
                       </div>
                       <CardContent className="p-5">
-                        <Link href={`/post/${post.id}`} className="block">
+                        <Link href={`/blog/post/${post.id}`} className="block">
                           <h3 className="text-lg font-bold mb-2 line-clamp-2 hover:text-primary-600 transition-colors">
                             {post.title}
                           </h3>
