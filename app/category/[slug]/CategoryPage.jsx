@@ -22,37 +22,31 @@ const categoryInfo = {
     title: "Technology",
     description: "Latest gadgets, software updates, and tech industry insights",
     color: "bg-blue-500",
-    gradient: "from-blue-700 to-blue-400"
   },
   fashion: {
     title: "Fashion",
     description: "Style guides, trends, and fashion industry news",
     color: "bg-pink-500",
-    gradient: "from-pink-700 to-pink-400"
   },
   travel: {
     title: "Travel",
     description: "Destinations, travel tips, and adventure stories",
     color: "bg-green-500",
-    gradient: "from-green-700 to-green-400"
   },
   lifestyle: {
     title: "Lifestyle",
     description: "Living well, personal growth, and life inspiration",
     color: "bg-purple-500",
-    gradient: "from-purple-700 to-purple-400"
   },
   food: {
     title: "Food",
     description: "Recipes and culinary adventures",
     color: "bg-orange-500",
-    gradient: "from-orange-700 to-orange-400"
   },
   health: {
     title: "Health",
     description: "Wellness and fitness advice",
     color: "bg-teal-500",
-    gradient: "from-teal-700 to-teal-400"
   },
 }
 
@@ -96,7 +90,7 @@ export default function CategoryPage({allPosts}) {
       </div>
 
       {/* Category Hero */}
-<section className={`relative bg-gradient-to-r ${category.gradient} text-white pt-10 md:pt-20`}>
+      <section className="relative bg-gradient-to-r from-primary-700 to-secondary-700 text-white pt-10 md:pt-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
