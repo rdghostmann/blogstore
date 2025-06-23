@@ -1,60 +1,49 @@
 import mongoose from "mongoose"
-import VBlog from "@/models/VBlog"
+import BlogPost from "@/models/BlogPost"
 import { connectToDB } from "@/lib/connectDB"
 
-const videos = [
+const users = [
   {
-    title: "The Future of Sustainable Fashion: A Deep Dive into Eco-Friendly Materials",
-    description: "Join us as we explore the latest innovations in sustainable fashion, from lab-grown materials to circular design principles that are reshaping the industry.",
-    thumbnail: "/blog/blog-inside-post.jpg",
-    duration: "12:34",
-    views: "15.2K",
-    likes: "1.2K",
-    publishedDate: "3 days ago",
-    category: "Fashion",
-    author: {
-      name: "Emma Davis",
-      avatar: "/team/team-4.jpg",
-    },
+    id: '6843d2c980c1994a49016e1d',
+    username: 'admin@example.com',
   },
   {
-    title: "Tech Gadgets That Will Change Your Life in 2024",
-    thumbnail: "/blog/blog-6.jpg",
-    duration: "8:45",
-    views: "8.7K",
-    category: "Technology",
-    author: {
-      name: "Lisa Parker",
-      avatar: "",
-    },
-  },
-  {
-    title: "Hidden Travel Gems in Southeast Asia",
-    thumbnail: "/blog/blog-recent-4.jpg",
-    duration: "15:22",
-    views: "12.1K",
-    category: "Travel",
-    author: {
-      name: "Robert Brown",
-      avatar: "",
-    },
-  },
-  {
-    title: "Minimalist Living: Transform Your Space",
-    thumbnail: "/blog/blog-recent-5.jpg",
-    duration: "10:18",
-    views: "9.3K",
-    category: "Lifestyle",
-    author: {
-      name: "Sophia Martinez",
-      avatar: "",
-    },
-  },
+    id: '685925e8ec5b783e5576952d',
+    username: 'pinky20@gmail.com',
+  }
 ]
 
-export default async function SeedVBlogs() {
+const categories = ["Technology", "Fashion", "Travel", "Lifestyle", "Food", "Health"]
+
+// Generate 3 posts per category, alternating users
+const posts = categories.flatMap((category, catIdx) =>
+  Array.from({ length: 3 }).map((_, i) => {
+    const user = users[(catIdx + i) % users.length]
+    return {
+      title: `${category} Post ${i + 1}`,
+      excerpt: `This is an excerpt for ${category} post ${i + 1}.`,
+      content: `This is the content for ${category} post ${i + 1}.`,
+      category,
+      image: `/blog/${category.toLowerCase()}-${i + 1}.jpg`,
+      author: {
+        name: user.username,
+        avatar: "",
+      },
+      authorId: new mongoose.Types.ObjectId(user.id),
+      date: new Date(),
+      status: "published",
+      slug: `${category.toLowerCase()}-post-${i + 1}`,
+      tags: [category.toLowerCase()],
+      views: Math.floor(Math.random() * 1000),
+      comments: Math.floor(Math.random() * 20),
+      readTime: `${4 + i} min read`,
+    }
+  })
+)
+
+export default async function SeedBlogPosts() {
   await connectToDB()
-  await VBlog.insertMany(videos)
+  await BlogPost.insertMany(posts)
   await mongoose.disconnect()
-  return <div>Seeded video blogs!</div>
+  return <div>Seeded blog posts for all categories!</div>
 }
