@@ -10,7 +10,7 @@ import { Clock, MessageSquare, Eye, Bookmark } from "lucide-react"
 
 
 // Optional: Accept categoryColor as a prop if you want dynamic badge color
-export default function PostCard({ post, categoryColor }) {
+export default function PostCard({ post }) {
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
