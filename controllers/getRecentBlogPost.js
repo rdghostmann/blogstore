@@ -2,17 +2,15 @@
 
 import BlogPost from "@/models/BlogPost"
 import { connectToDB } from "@/lib/connectDB"
-import Category from "@/models/Category"
 
 export async function getFeaturedBlogPosts() {
   await connectToDB()
-  // Get all categories
-  const categories = await Category.find().lean()
+  const categories = ["Fashion", "Travel", "Technology"]
 
-  // For each category, get the most recent blog post
+  // Get the most recent post for each category
   const featuredPosts = await Promise.all(
     categories.map(async (cat) => {
-      const post = await BlogPost.findOne({ category: cat.name }) // Use cat.name if your mock data uses string
+      const post = await BlogPost.findOne({ category: cat })
         .sort({ date: -1 })
         .lean()
       if (!post) return null
@@ -20,7 +18,6 @@ export async function getFeaturedBlogPosts() {
         ...post,
         id: post._id ? post._id.toString() : post.id,
         authorId: post.authorId ? post.authorId.toString() : "",
-        category: cat.name,
         date: post.date instanceof Date
           ? post.date.toISOString().split("T")[0]
           : (typeof post.date === "string" && post.date.includes("T") ? post.date.split("T")[0] : post.date),

@@ -1,53 +1,11 @@
 "use client"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import FeaturedPostCard from "@/components/featured-post-card"
 import AnimatedHeading from "@/components/animated-heading"
 import { useInView } from "framer-motion"
+import { getFeaturedBlogPosts } from "@/controllers/getRecentBlogPost"
 
-
-// Sample data for featured posts
-const featuredPosts = [
-    {
-        id: 1,
-        title: "The Future of AI in Everyday Technology",
-        excerpt: "How artificial intelligence is transforming our daily lives and what to expect in the coming years.",
-        category: "Technology",
-        image: "/post-slide-1.jpg",
-        author: {
-            name: "Alex Johnson",
-            avatar: "/team/team-1.jpg",
-        },
-        date: "May 28, 2023",
-        readTime: "5 min read",
-    },
-    {
-        id: 2,
-        title: "Summer Fashion Trends to Watch in 2023",
-        excerpt: "The hottest styles, colors, and accessories that will dominate the fashion scene this summer.",
-        category: "Fashion",
-        image: "/post-slide-2.jpg",
-        author: {
-            name: "Emma Davis",
-            avatar: "/team/team-2.jpg",
-        },
-        date: "May 25, 2023",
-        readTime: "4 min read",
-    },
-    {
-        id: 3,
-        title: "Hidden Gems: Unexplored Travel Destinations",
-        excerpt: "Discover these lesser-known but breathtaking locations for your next adventure.",
-        category: "Travel",
-        image: "/post-slide-3.jpg",
-        author: {
-            name: "Michael Wong",
-            avatar: "/team/team-3.jpg",
-        },
-        date: "May 22, 2023",
-        readTime: "6 min read",
-    },
-]
 
 // Animation variants
 const fadeInUp = {
@@ -66,17 +24,24 @@ const staggerContainer = {
 }
 const FeaturedPost = () => {
     const featuredRef = useRef(null)
-
-
     const featuredInView = useInView(featuredRef, { once: true, amount: 0.3 })
-     useEffect(() => {
-       const handleScroll = () => {
-         document.documentElement.style.setProperty("--scroll", `${window.scrollY}px`)
-       }
-   
-       window.addEventListener("scroll", handleScroll)
-       return () => window.removeEventListener("scroll", handleScroll)
-     }, [])
+    const [featuredPosts, setFeaturedPosts] = useState([])
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const posts = await getFeaturedBlogPosts()
+            setFeaturedPosts(posts)
+        }
+        fetchPosts()
+    }, [])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            document.documentElement.style.setProperty("--scroll", `${window.scrollY}px`)
+        }
+        window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [])
 
     return (
         <section

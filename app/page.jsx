@@ -5,14 +5,17 @@ import AdsBanner from "@/components/ads-banner"
 import HeroSection from "@/components/HeroSection/HeroSection"
 import FeaturedPost from "@/components/FeaturedPost/FeaturedPost"
 import Newsletter from "@/components/Newsletter/Newsletter"
-import SidebarPost from "@/components/SidebarPost/SidebarPost"
 import CategoriesSection from "@/components/CategoriesSection/CategoriesSection"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 
 
+import { getAllBlogPosts } from "@/controllers/getAllBlogPost"
+import SidebarPostClient from "@/components/SidebarPost/SidebarPost"
 
-export default function Home() {
+
+export default async function Home() {
+  const posts = await getAllBlogPosts()
 
 
   return (
@@ -40,7 +43,8 @@ export default function Home() {
       </div>
 
       {/* Latest Posts Section with Sidebar */}
-      <SidebarPost />
+      <SidebarPostClient posts={posts} />
+
 
       {/* Video of the Week Section */}
       <VideoOfTheWeek />
@@ -55,7 +59,7 @@ export default function Home() {
       />
 
       {/* Categories Section */}
-     <CategoriesSection />
+      <CategoriesSection />
 
       {/* Newsletter Section */}
       <Newsletter />

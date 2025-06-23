@@ -17,7 +17,7 @@ export default function FeaturedPostCard({ post }) {
       }}
     >
       <Card className="overflow-hidden h-full">
-        <div className="relative h-48 w-full overflow-hidden">
+        <div className="border relative h-48 w-full overflow-hidden">
           <Image
             src={post.image || "/placeholder.svg"}
             alt={post.title}
