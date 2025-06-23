@@ -3,6 +3,8 @@
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import slugify from "slugify"
+import { uploadToVercelBlob } from "@/lib/vercelBlob"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,7 +24,7 @@ import { addPost } from "@/controllers/addPost" // server action
 export default function CreatePost({ categories, user }) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
-
+  const [imageFile, setImageFile] = useState(null)
   const [formData, setFormData] = useState({
     title: "",
     excerpt: "",
@@ -31,6 +33,11 @@ export default function CreatePost({ categories, user }) {
     image: "",
   })
 
+  // Handle file input change
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+    setImageFile(file)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -40,21 +47,32 @@ export default function CreatePost({ categories, user }) {
       return
     }
 
- if (!user?.id || !user?.username) {
+    if (!user?.id && !user?._id) {
       toast.error("User is not authenticated properly.")
       return
     }
-      console.log("Submitting formData:", {
-    ...formData,
-    authorId: user?.id,
-    authorName: user?.name,
-  })
+
+    let imageUrl = formData.image
+    if (imageFile) {
+      try {
+        toast.info("Uploading image...")
+        imageUrl = await uploadToVercelBlob(imageFile)
+        toast.success("Image uploaded!")
+      } catch (err) {
+        toast.error("Image upload failed")
+        return
+      }
+    }
+
+    const slug = slugify(formData.title, { lower: true, strict: true })
 
     startTransition(async () => {
       const result = await addPost({
         ...formData,
-        authorId: user.id,
-        authorName: user.username,
+        image: imageUrl,
+        authorId: user.id || user._id,
+        authorName: user.name || user.username,
+        slug,
       })
 
       if (result?.success) {
@@ -65,7 +83,6 @@ export default function CreatePost({ categories, user }) {
       }
     })
   }
-
 
   return (
     <DashboardLayout role="writer">
@@ -125,13 +142,16 @@ export default function CreatePost({ categories, user }) {
               </div>
 
               <div>
-                <Label htmlFor="image">Featured Image URL</Label>
+                <Label htmlFor="image">Featured Image</Label>
                 <Input
                   id="image"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
                 />
+                {formData.image && (
+                  <img src={formData.image} alt="Preview" className="mt-2 w-32 h-20 object-cover rounded" />
+                )}
               </div>
 
               <div>
