@@ -147,7 +147,8 @@ export default function CategoryPage({ allPosts }) {
                   className="grid grid-cols-1 md:grid-cols-2 gap-8"
                 >
                   {categoryPosts.map((post) => (
-                    <PostCard key={post.id} post={post} />
+                    <p>{post}</p>
+
                   ))}
                 </motion.div>
               ) : (
