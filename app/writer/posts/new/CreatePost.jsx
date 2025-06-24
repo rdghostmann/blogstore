@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import DashboardLayout from "@/components/dashboard-layout"
-import { addPost } from "@/controllers/addPost" // server action
+import { addPost } from "@/controllers/addPost"
 
 export default function CreatePost({ categories, user }) {
   const router = useRouter()
