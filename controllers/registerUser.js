@@ -5,10 +5,8 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import User from "@/models/User";
 
-
 // Server action for registering a user
-export async function registerUser({ username, email, password, phone }) {
-
+export async function registerUser({ username, email, password, phone, role }) {
   try {
     // Connect to the MongoDB database
     await connectToDB();
@@ -36,7 +34,7 @@ export async function registerUser({ username, email, password, phone }) {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
     const userID = uuidv4();
-    
+
     // Use the provided role, fallback to "user" if not valid
     const allowedRoles = ["user", "writer", "admin"];
     const safeRole = allowedRoles.includes(role) ? role : "user";
@@ -51,7 +49,6 @@ export async function registerUser({ username, email, password, phone }) {
       status: "active",
     });
 
-
     await newUser.save();
 
     return {
@@ -60,6 +57,6 @@ export async function registerUser({ username, email, password, phone }) {
     };
   } catch (error) {
     console.error("Error registering user:", error);
-    return { success: false, message: "Error creating user " };
+    return { success: false, message: "Error creating user" };
   }
 }

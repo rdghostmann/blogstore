@@ -5,11 +5,17 @@ import { Edit, UserX, Trash2 } from "lucide-react"
 import { useTransition } from "react"
 import { deactiveUser } from "@/controllers/DeactivateUser"
 import { removeUser } from "@/controllers/RemoveUser"
+import mongoose from "mongoose"
 
 export function UserActions({ user, onEdit, onActionComplete }) {
   const [isPending, startTransition] = useTransition()
 
   const handleDeactivate = () => {
+    // Only allow deactivation if user has a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(user.id)) {
+      if (onActionComplete) onActionComplete()
+      return
+    }
     startTransition(async () => {
       await deactiveUser(user.id)
       if (onActionComplete) onActionComplete()
@@ -17,6 +23,11 @@ export function UserActions({ user, onEdit, onActionComplete }) {
   }
 
   const handleDelete = () => {
+    // Only allow deletion if user has a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(user.id)) {
+      if (onActionComplete) onActionComplete()
+      return
+    }
     startTransition(async () => {
       await removeUser(user.id)
       if (onActionComplete) onActionComplete()
