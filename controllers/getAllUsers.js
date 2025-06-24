@@ -10,10 +10,11 @@ export async function getAllUsers() {
   // Map to plain objects and format createdAt
   return users.map(user => ({
     id: user._id.toString(),
-    username: user.username,
-    email: user.email,
-    role: user.role,
-    status: user.status,
+    username: user.username || "",
+    name: user.name || "",
+    email: user.email || "",
+    role: user.role || "",
+    status: user.status || "",
     createdAt: user.createdAt
       ? new Date(user.createdAt).toLocaleDateString()
       : "",

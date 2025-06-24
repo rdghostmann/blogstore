@@ -4,5 +4,9 @@ import AdminPostsPage from "./AdminPostsPage"
 
 export default async function Page() {
   const posts = await getAllBlogPosts()
-  return <AdminPostsPage posts={posts} />
+  return (
+    <>
+    <AdminPostsPage posts={posts} />
+    </>
+  )
 }
