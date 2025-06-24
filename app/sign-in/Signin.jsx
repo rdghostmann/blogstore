@@ -307,7 +307,7 @@ const Signin = () => {
                       )}
                     </Button>
                   </form>
-                  <div className="mt-6 text-center text-sm text-gray-400">
+                  <div className="mt-6 text-center text-sm text-white">
                     Don't have an account?{" "}
                     <span className="text-yellow-500">Register above</span>
                   </div>
